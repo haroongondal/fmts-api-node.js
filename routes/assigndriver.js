@@ -29,7 +29,7 @@ router.post('/', function(req, res, next) {
     console.log(req.body.vregno)
 
    // console.log(req.body.vchessisno)
-    if(req.query.bookingID && req.query.driverID){
+    if(req.query.bookingID){
         Assigndriver.updateOne(
             { bookingID: req.query.bookingID,driverID: req.query.driverid}, { $set: {
                 status: 'finished',
