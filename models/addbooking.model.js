@@ -12,7 +12,8 @@ const BookingSchema = new BookingSchemaIns({
     dateofreturn: String,
     pickuppoint: String,
     destination:String,
-    bookingdate: String
+    bookingdate: String,
+    status: String
 
 })
 

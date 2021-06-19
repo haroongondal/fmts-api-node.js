@@ -27,7 +27,18 @@ router.post('/', function(req, res, next) {
     console.log(req.body.customerID)
 
    // console.log(req.body.vchessisno)
+   if(req.query.bookingID =='yes'){
+    AddBooking.updateOne(
+        { bookingID: req.body.bookingID}, { $set: {
+            status: 'finished',
+        } }, function (err, result) {
 
+        if(err) console.log(err)
+        console.log(result);
+        })
+        .then(res.send('finished'))
+}    
+else{
     try{
         AddBooking.create({
                 customerID : req.body.customerID,
@@ -37,8 +48,8 @@ router.post('/', function(req, res, next) {
                 dateofreturn: req.body.dateofreturn,
                 pickuppoint: req.body.pickuppoint,
                 destination: req.body.destination,
-                bookingdate: req.body.bookingdate
-
+                bookingdate: req.body.bookingdate,
+                status:'not-finished'
             },
             function (err, result) {
                 if(err) console.log(err)
@@ -51,7 +62,7 @@ router.post('/', function(req, res, next) {
     catch (err){
         res.status(400).send("Customer details  failed to save.")
     }
-
+}
 
 });
 

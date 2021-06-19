@@ -31,15 +31,21 @@ router.get('/', function(req, res, next) {
 
         try{
 
-            GetBooking.find({},{bookingID:1,_id:0}).where('customerID').equals(req.query.customerID).exec(function (err, result)   {
-                // GetBooking.find({},{bookingID:1,_id:0}).exec(function (err, result)   {
+            GetBooking.aggregate([
+                {
+                    $match:
+                    {
+                        status:'not-finished',
+                        customerID:req.query.customerID
+                    }
+                }
+            ]
+            ,function (err,result) {
                 if(err) console.log(err)
-                console.log(result)
                 res.send(result)
+    
             });
-            // res.send({
-            //     token: 1
-            // });
+            
         }
         catch (err){
             res.status(400).send("Could not get Booking Details")
@@ -50,7 +56,7 @@ router.get('/', function(req, res, next) {
 
         try{
 
-            GetBooking.find({},{bookingID:1,_id:0}).where('bookingdate').lte(new Date()).exec(function (err, result)   {
+            GetBooking.find({},{bookingID:1,_id:0}).where('status').equals('not-finished').exec(function (err, result)   {
                 // GetBooking.find({},{bookingID:1,_id:0}).exec(function (err, result)   {
                 if(err) console.log(err)
                 console.log(result)

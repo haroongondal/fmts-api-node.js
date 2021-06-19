@@ -26,18 +26,17 @@ VehicleReservationStatus = require('../models/vehiclereservationstatus.model')
 
 router.post('/', function(req, res, next) {
 
-    console.log(req.body.vregno)
-
    // console.log(req.body.vchessisno)
-    if(req.query.bookingID){
+    if(req.query.bookingID=='yes'){
         Assigndriver.updateOne(
-            { bookingID: req.query.bookingID,driverID: req.query.driverid}, { $set: {
+            { bookingID: req.body.bookingID,driverID: req.body.driverid}, { $set: {
                 status: 'finished',
             } }, function (err, result) {
 
             if(err) console.log(err)
             console.log(result);
             })
+            .then(res.send('finished'))
 }    
     else{
         try{
