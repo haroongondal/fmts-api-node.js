@@ -29,7 +29,7 @@ router.get('/', function(req, res, next) {
 
     try{
         //To get all those vehicles which are not reserved by where clause and equals conidtion
-        GetDriverIDs.find({},{driverID:1,driverfname:1,driverlname:1,_id:0},).exec(function (err, result)   {
+        GetDriverIDs.find({},{driverID:1,driverfname:1,driverlname:1,_id:0},).where('status').equals('Active').exec(function (err, result)   {
             // GetBooking.find({},{bookingID:1,_id:0}).exec(function (err, result)   {
             if(err) console.log(err)
             console.log(result)

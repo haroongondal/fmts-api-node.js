@@ -27,16 +27,14 @@ router.post('/', function(req, res, next) {
 
     if(req.query.driverID){
        // console.log(req.body.vchessisno)
-        const driverFirstName = req.body.driverFirstName.toString()
-        const driverLastName = req.body.driverLastName.toString()
         const driverCNIC = req.body.driverCNIC.toString()
         const driverPhoneNo = req.body.driverPhoneNo.toString()
+        const status = req.body.status.toString()
         AddOrUpdatedriver.updateOne(
             { driverID: req.query.driverID }, { $set: {
-                    driverfname: driverFirstName,
-                    driverlname: driverLastName,
                     driverCNIC: driverCNIC,
-                    driverPhoneNo: driverPhoneNo
+                    driverPhoneNo: driverPhoneNo,
+                    status:status
 
 
                 } }, function (err, result) {
@@ -57,7 +55,8 @@ router.post('/', function(req, res, next) {
                     driverCNIC: req.body.drivercnic,
                     driverPhoneNo: req.body.driverphoneno,
                     driverRating: 0,
-                    count:1
+                    count:1,
+                    status:'Active'
                 },
                 function (err, result) {
                     if(err) console.log(err)

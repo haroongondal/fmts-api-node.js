@@ -11,7 +11,8 @@ const DriverSchema = new DriverSchemaIns({
     driverCNIC: String,
     driverPhoneNo: String,
     driverRating:mongoose.Schema.Types.Decimal128,
-    count:mongoose.Schema.Types.Number
+    count:mongoose.Schema.Types.Number,
+    status:String
 })
 
 const DriverModelIns = mongoose.model
