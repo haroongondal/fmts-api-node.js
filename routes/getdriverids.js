@@ -26,23 +26,40 @@ router.get('/', function(req, res, next) {
     // console.log(req.body.vchessisno)
 
    // console.log(req.body.vchessisno)
-
-    try{
-        //To get all those vehicles which are not reserved by where clause and equals conidtion
-        GetDriverIDs.find({},{driverID:1,driverfname:1,driverlname:1,_id:0},).where('status').equals('Active').exec(function (err, result)   {
-            // GetBooking.find({},{bookingID:1,_id:0}).exec(function (err, result)   {
-            if(err) console.log(err)
-            console.log(result)
-            res.send(result)
-        });
-        // res.send({
-        //     token: 1
-        // });
+    if(req.query.driver == 'yes'){
+        try{
+            //To get all those vehicles which are not reserved by where clause and equals conidtion
+            GetDriverIDs.find({},{driverID:1,driverfname:1,driverlname:1,_id:0},function (err, result)   {
+                // GetBooking.find({},{bookingID:1,_id:0}).exec(function (err, result)   {
+                if(err) console.log(err)
+                console.log(result)
+                res.send(result)
+            });
+            // res.send({
+            //     token: 1
+            // });
+        }
+        catch (err){
+            res.status(400).send("Could not get Driver IDs")
+        }
     }
-    catch (err){
-        res.status(400).send("Could not get Driver IDs")
+    else{
+        try{
+            //To get all those vehicles which are not reserved by where clause and equals conidtion
+            GetDriverIDs.find({},{driverID:1,driverfname:1,driverlname:1,_id:0},).where('status').equals('Active').exec(function (err, result)   {
+                // GetBooking.find({},{bookingID:1,_id:0}).exec(function (err, result)   {
+                if(err) console.log(err)
+                console.log(result)
+                res.send(result)
+            });
+            // res.send({
+            //     token: 1
+            // });
+        }
+        catch (err){
+            res.status(400).send("Could not get Driver IDs")
+        }
     }
-
 
 });
 
